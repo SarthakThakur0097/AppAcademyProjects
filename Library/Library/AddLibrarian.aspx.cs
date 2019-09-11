@@ -32,15 +32,18 @@ namespace Library
 
             int libraryId =int.Parse(LibraryList.SelectedValue);
             int libraryCardId = int.Parse(PatronList.SelectedValue);
+            string pass = Password.Text;
            
 
 
             int? id = DatabaseHelper.Insert(@"
-                insert into Librarian (LibraryCardId, LibraryId)
-                values (@LibraryCardId, @LibraryId);
+                insert into Librarian (LibraryCardId, LibraryId, LibPassword)
+                values (@LibraryCardId, @LibraryId, @LibPassword);
             ",
                 new SqlParameter("@LibraryCardId", libraryCardId),
-                new SqlParameter("@LibraryId", libraryId));
+                new SqlParameter("@LibraryId", libraryId),
+                new SqlParameter("@LibPassword", pass)
+                );
             ;
 
         }

@@ -11,7 +11,7 @@
 
         <asp:repeater id="Authors" runat="server" itemtype="DataRow">
             <headertemplate>
-                <table>
+                <table class="table table-sm table-striped table-hover">
                     <tr>
                         <th>First Name</th>
                         <th>Last Name</th>

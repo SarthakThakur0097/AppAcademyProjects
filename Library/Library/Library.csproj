@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BCrypt.Net, Version=0.1.4141.31969, Culture=neutral, PublicKeyToken=f3bc8f8c31beeb49, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt.Net.0.1.0\lib\net35\BCrypt.Net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -77,8 +80,10 @@
     <Content Include="BookList.aspx" />
     <Content Include="CheckOutPatron.aspx" />
     <Content Include="Controls\AuthorAdd.ascx" />
+    <Content Include="default.aspx" />
     <Content Include="LibrarianList.aspx" />
     <Content Include="LibraryList.aspx" />
+    <Content Include="Login.aspx" />
     <Content Include="packages.config" />
     <Content Include="PatronList.aspx" />
     <Content Include="Site.Master" />
@@ -131,6 +136,7 @@
     <Compile Include="AddState.aspx.designer.cs">
       <DependentUpon>AddState.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Authenticator.cs" />
     <Compile Include="AuthorAdd.aspx.cs">
       <DependentUpon>AuthorAdd.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -151,6 +157,9 @@
     </Compile>
     <Compile Include="AuthorsList.aspx.designer.cs">
       <DependentUpon>AuthorsList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BookCopies.aspx.cs">
       <DependentUpon>BookCopies.aspx</DependentUpon>
@@ -180,10 +189,20 @@
     <Compile Include="Controls\AuthorAdd.ascx.designer.cs">
       <DependentUpon>AuthorAdd.ascx</DependentUpon>
     </Compile>
+    <Compile Include="CustomIdentity.cs" />
     <Compile Include="Data\DatabaseHelper.cs" />
+    <Compile Include="Data\Repository.cs" />
+    <Compile Include="default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Librarian.cs" />
     <Compile Include="LibrarianList.aspx.cs">
       <DependentUpon>LibrarianList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -197,6 +216,13 @@
     </Compile>
     <Compile Include="LibraryList.aspx.designer.cs">
       <DependentUpon>LibraryList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="PatronList.aspx.cs">
       <DependentUpon>PatronList.aspx</DependentUpon>
@@ -220,6 +246,8 @@
     <Compile Include="StateList.aspx.designer.cs">
       <DependentUpon>StateList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Temp.cs" />
+    <Compile Include="User.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

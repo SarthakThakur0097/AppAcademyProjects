@@ -1,0 +1,9 @@
+﻿@model IList<Twits.Models.Twit>
+<p>There are @Model.Count twits to read</p>
+<ul>@foreach (var currText in Model)
+
+{
+    <li>@currText.Text</li>
+}
+    </ul>
+<p>@Html.ActionLink("Create a Twit", "Create")</p>

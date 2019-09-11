@@ -17,6 +17,11 @@
     </asp:DropDownList>
     <asp:SqlDataSource ID="PatronDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:Library %>" SelectCommand="SELECT [FirstName], [LibraryCardId], [LastName], [AddressLine1], [ZipCode], [City] FROM [Patron]"></asp:SqlDataSource>
     
+
+            <div>
+                <asp:Label id ="Password" Text ="Password" runat="server"></asp:Label>
+                <asp:TextBox ID ="PasswordInput" runat ="server"></asp:TextBox>
+            </div>
       
              
      

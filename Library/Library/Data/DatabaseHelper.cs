@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 
 namespace Library.Data
 {
+    //login view control
     public static class DatabaseHelper
     {
         public static DataTable Retrieve(string sql, params SqlParameter[] parameters)

@@ -1,4 +1,5 @@
 ﻿using Library.Data;
+using System.Web.Security;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -13,6 +14,11 @@ namespace Library
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Request.IsAuthenticated)
+            {
+                FormsAuthentication.RedirectToLoginPage();
+            }
+
         }
 
         protected void Save_Click(object sender, EventArgs e)

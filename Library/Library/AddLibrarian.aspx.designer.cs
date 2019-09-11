@@ -58,6 +58,24 @@ namespace Library {
         protected global::System.Web.UI.WebControls.SqlDataSource PatronDataSource;
         
         /// <summary>
+        /// Password control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Password;
+        
+        /// <summary>
+        /// PasswordInput control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox PasswordInput;
+        
+        /// <summary>
         /// Save control.
         /// </summary>
         /// <remarks>

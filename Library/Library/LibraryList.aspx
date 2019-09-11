@@ -10,7 +10,7 @@
 
         <asp:repeater id="Libraries" runat="server" itemtype="DataRow">
             <headertemplate>
-                <table>
+                <table class="table table-sm table-striped table-hover">
                     <tr>
                         <th>StateName</th>
                        

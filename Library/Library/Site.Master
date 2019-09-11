@@ -56,6 +56,29 @@
                         <asp:hyperlink runat="server" cssclass="nav-link" navigateurl="~/PatronList.aspx">Current Patrons</asp:hyperlink></li>
                 </ul>
             </div>
+
+            <div>
+               <%-- <asp:LoginView runat ="server"><%  Page.User.Identity %>></asp:LoginView<% %>>--%>
+
+                    <%--login view control--%>
+               
+                 <asp:loginview runat="server">
+                    <anonymoustemplate>
+                        <span>&nbsp;</span>
+                    </anonymoustemplate>
+                    <loggedintemplate>
+                        <span>Welcome, <asp:LoginName runat ="server" /></span>
+
+                        <span class="pr-3">Library Card Number: </span>
+                        <asp:Button ID ="Logout" Text ="Logout" OnClick ="LogOut_Click" runat ="server"/>
+                       <%-- <asp:button id="Logout" runat="server" text="Logout" cssclass="btn btn-secondary" onclick="Logout_Click" /> --%>
+                    </loggedintemplate>
+                     <AnonymousTemplate>
+                         <asp:HyperLink Text="Login" NavigateUrl="~/Login.aspx" runat="server" />
+                     </AnonymousTemplate>
+                </asp:loginview>
+
+            </div>
         </nav>
 
         <asp:ContentPlaceHolder ID="main" runat="server">

@@ -10,7 +10,7 @@
 
         <asp:repeater id="Patrons" runat="server" itemtype="DataRow">
             <headertemplate>
-                <table>
+                <table class="table table-sm table-striped table-hover">
                     <tr>
                         <th>Patrons</th>
                        

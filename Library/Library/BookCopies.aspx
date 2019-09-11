@@ -3,10 +3,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="main" runat="server">
     <asp:repeater id="Books" runat="server" itemtype="DataRow">
             <headertemplate>
-                <table>
+                <table class="table table-sm table-striped table-hover">
                     <tr>
                         <th>Title</th>
-                        <th>LibraryId</th>
+                        
                         <th>Library Name</th>
                         
                         <th>&nbsp;</th>
@@ -15,7 +15,7 @@
             <itemtemplate>
                 <tr>
                     <td><%# Item.Field<string>("title") %></td>
-                    <td><%# Item.Field<int>("LibraryId") %></td>
+                    
                     <td><%# Item.Field<string>("LocationName") %></td>
                     
                     <%--<td><%# Item.Field<string>("LastName") %></td>--%>
