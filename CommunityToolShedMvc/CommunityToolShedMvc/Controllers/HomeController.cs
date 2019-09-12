@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolShedMvc.Security;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,8 +10,18 @@ namespace CommunityToolShedMvc.Controllers
     [Authorize]
     public class HomeController : Controller
     {
+
+        public CustomPrincipal CustomUser
+        {
+            get
+            {
+                return (CustomPrincipal)User;
+            }
+        }
         public ActionResult Index()
         {
+            bool isMember = CustomUser.IsInRole(1, "Member");
+            bool isApprover = CustomUser.IsInRole(1, "Approver");
             return View();
         }
     }
