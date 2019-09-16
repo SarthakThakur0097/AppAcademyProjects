@@ -1,6 +1,9 @@
-﻿using CommunityToolShedMvc.Security;
+﻿using CommunityToolShedMvc.Data;
+using CommunityToolShedMvc.Models;
+using CommunityToolShedMvc.Security;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -22,7 +25,27 @@ namespace CommunityToolShedMvc.Controllers
         {
             bool isMember = CustomUser.IsInRole(1, "Member");
             bool isApprover = CustomUser.IsInRole(1, "Approver");
-            return View();
+            List<Communites> Communities = DatabaseHelper.Retrieve<Communites>(@"
+                      SELECT c.Id, c.[Name], c.Availability
+                      FROM Community c
+                         ")
+                        ;
+            //List<Tool> tools =  DatabaseHelper.Retrieve<Tool>(@"
+            //          SELECT R.RoleName, CP.CommunityId
+            //          FROM CommunityPerson CP
+            //          JOIN Community C ON CP.CommunityId = C.Id
+            //          JOIN Person P ON CP.PersonId = P.Id
+            //          JOIN [Role] R ON CP.RoleId = R.Id
+            //          WHERE P.Id = @PersonId
+            //             ",
+            //            new SqlParameter("@PersonId", ))
+            //            ;
+            return View(Communities);
+        }
+
+        public ActionResult Add()
+        {
+
         }
     }
 }

@@ -30,7 +30,6 @@ namespace CommunityToolShedMvc.Security
                 return true;
             }
         }
-
         public string Name
         {
             get
