@@ -41,7 +41,7 @@ namespace InvoiceMaker.Models
             LineItems.Add(new WorkLineItem(workDone));
         }
 
-        public void AddFeeLineItem(string description, double amount, DateTimeOffset when)
+        public void AddFeeLineItem(string description, decimal amount, DateTimeOffset when)
         {
             LineItems.Add(new FeeLineItem(description, amount, when));
         }

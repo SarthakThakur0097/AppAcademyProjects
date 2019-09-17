@@ -7,7 +7,7 @@ namespace InvoiceMaker.Models
 {
     public interface ILineItem
     {
-        double Amount
+        decimal Amount
         {
             get;
         }

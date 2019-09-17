@@ -7,21 +7,20 @@ using System.Web;
 
 namespace InvoiceMaker.Models.Repositories
 {
-    public class ClientRepository
+    public class WorkTypeRepo
     {
-        
-        public List<Client> GetClients()
+        public List<WorkType> GetWorkTypes()
         {
-            List<Client> clients = new List<Client>();
+            List<WorkType> workTypes = new List<WorkType>();
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
                 string sql = @"
-          SELECT Id, ClientName, IsActivated
-          FROM Client
-          ORDER BY ClientName
-        ";
+                SELECT Id, [Name], Rate
+                FROM WorkType
+                ORDER BY [Name]
+                ";
                 SqlCommand command = new SqlCommand(sql, connection);
                 SqlDataReader reader = command.ExecuteReader();
 
@@ -29,29 +28,25 @@ namespace InvoiceMaker.Models.Repositories
                 {
                     int id = reader.GetInt32(0);
                     string name = reader.GetString(1);
-                    bool isActivated = reader.GetBoolean(2);
-                    Client client = new Client(id, name, isActivated);
-                    clients.Add(client);
+                    decimal rate = reader.GetDecimal(2);
+                    WorkType workType = new WorkType(id, name, rate);
+                    workTypes.Add(workType);
                 }
             }
-            return clients;
+            return workTypes;
         }
 
-        internal List<WorkType> GetWorkTypes()
-        {
-            throw new NotImplementedException();
-        }
 
-        public Client GetById(int id)
+        public WorkType GetById(int id)
         {
-           // Client client = new Client();
+            // Client client = new Client();
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
                 string sql = @"
-                SELECT Id, ClientName, IsActivated
-                FROM Client
+                SELECT Id, [Name], rate
+                FROM WorkType
                 WHERE Id = @id 
                    ";
                 SqlCommand command = new SqlCommand(sql, connection);
@@ -62,10 +57,10 @@ namespace InvoiceMaker.Models.Repositories
                 {
                     int cid = id;
                     string name = reader.GetString(1);
-                    bool isActivated = reader.GetBoolean(2);
-                    Client client = new Client(cid, name, isActivated);
+                    decimal rate = reader.GetDecimal(2);
+                    WorkType workType = new WorkType( cid, name, rate);
 
-                    return client;
+                    return workType;
                 }
             }
             return null;
@@ -73,46 +68,45 @@ namespace InvoiceMaker.Models.Repositories
 
         private string _connectionString = ConfigurationManager.ConnectionStrings["InvoiceMakerMvc"].ConnectionString;
 
-        public void Insert(Client client)
+        public void Insert(WorkType workType)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
                 string sql = @"
-      INSERT INTO Client(ClientName, IsActivated)
-      VALUES
-      (@clientName, @isActivated)
-    ";
+                INSERT INTO WorkType([Name], rate)
+                VALUES
+                (@Name, @rate)
+                 ";
                 SqlCommand command = new SqlCommand(sql, connection);
-                command.Parameters.AddWithValue("@clientName", client.Name);
-                command.Parameters.AddWithValue("@isActivated", client.IsActive);
+                command.Parameters.AddWithValue("@Name", workType.Name);
+                command.Parameters.AddWithValue("@rate", workType.Rate);
                 command.ExecuteNonQuery();
             }
         }
 
-       
 
 
-        public void Update(Client client)
+
+        public void Update(WorkType workType)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
                 string sql = @"
-      UPDATE Client
-      SET ClientName = @clientName
-        , IsActivated = @isActivated
-      WHERE Id = @id
-    ";
+                UPDATE WorkType
+                SET [Name] = @Name
+                , rate = @rate
+                WHERE Id = @id
+                    ";
                 SqlCommand command = new SqlCommand(sql, connection);
-                command.Parameters.AddWithValue("@clientName", client.Name);
-                command.Parameters.AddWithValue("@isActivated", client.IsActive);
-                command.Parameters.AddWithValue("@id", client.Id);
+                command.Parameters.AddWithValue("@Name", workType.Name);
+                command.Parameters.AddWithValue("@rate", workType.Rate);
+                command.Parameters.AddWithValue("@id", workType.Id);
                 command.ExecuteNonQuery();
             }
         }
-
     }
 }

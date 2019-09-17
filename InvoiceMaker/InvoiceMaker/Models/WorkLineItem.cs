@@ -13,7 +13,7 @@ namespace InvoiceMaker.Models
             _workDone = workDone;
         }
 
-        public double Amount
+        public decimal Amount
         {
             get
             {
@@ -33,7 +33,7 @@ namespace InvoiceMaker.Models
         {
             get
             {
-                return _workDone.StartedOn;
+                return _workDone.StartedOn.DateTime;
             }
         }
     }

@@ -10,32 +10,33 @@ using System.Web.Mvc;
 
 namespace InvoiceMaker.Controllers
 {
-    public class ClientsController: Controller
+    public class WorkTypeController : Controller
     {
-
+        // GET: WorkType
         public ActionResult Index()
         {
-            ClientRepository repo = new ClientRepository();
-            List<Client> clients = repo.GetClients();
-            return View("Index", clients);
+            WorkTypeRepo repo = new WorkTypeRepo();
+            List<WorkType> workTypes = repo.GetWorkTypes();
+
+            return View("Index", workTypes);
         }
 
         [HttpGet]
         public ActionResult Create()
         {
-            CreateClient client = new CreateClient();
-            client.IsActivated = true;
-            return View("Create", client);
+            CreateWorkType workType = new CreateWorkType();
+       
+            return View("Create", workType);
         }
 
         [HttpPost]
-        public ActionResult Create(CreateClient client)
+        public ActionResult Create(CreateWorkType workType)
         {
-            ClientRepository repo = new ClientRepository();
+            WorkTypeRepo repo = new WorkTypeRepo();
             try
             {
-                Client newClient = new Client(0, client.Name, client.IsActivated);
-                repo.Insert(newClient);
+                WorkType newWorkType = new WorkType(0,workType.Name, workType.Rate);
+                repo.Insert(newWorkType);
                 return RedirectToAction("Index");
             }
             catch (SqlException se)
@@ -45,30 +46,31 @@ namespace InvoiceMaker.Controllers
                     ModelState.AddModelError("Name", "That name is already taken.");
                 }
             }
-            return View("Create", client);
+            return View("Create", workType);
         }
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            ClientRepository repo = new ClientRepository();
-            Client client = repo.GetById(id);
+            WorkTypeRepo repo = new WorkTypeRepo();
+            WorkType workType = repo.GetById(id);
 
-            EditClient model = new EditClient();
-            model.Id = client.Id;
-            model.IsActivated = client.IsActive;
-            model.Name = client.Name;
+            EditWorkType model = new EditWorkType();
+            //model.Id = client.Id;
+            model.Id = id;
+            model.Name = workType.Name;
+            model.Rate = workType.Rate;
             return View("Edit", model);
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, EditClient client)
+        public ActionResult Edit(int id, EditWorkType workType)
         {
-            ClientRepository repo = new ClientRepository();
+            WorkTypeRepo repo = new WorkTypeRepo();
             try
             {
-                Client newClient = new Client(id, client.Name, client.IsActivated);
-                repo.Update(newClient);
+                WorkType newWorkType = new WorkType(id, workType.Name, workType.Rate);
+                repo.Update(newWorkType);
                 return RedirectToAction("Index");
             }
             catch (SqlException se)
@@ -78,7 +80,7 @@ namespace InvoiceMaker.Controllers
                     ModelState.AddModelError("Name", "That name is already taken.");
                 }
             }
-            return View("Edit", client);
+            return View("Edit", workType);
         }
     }
 }

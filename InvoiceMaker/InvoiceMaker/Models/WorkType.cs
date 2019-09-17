@@ -7,8 +7,9 @@ namespace InvoiceMaker.Models
 {
     public class WorkType
     {
-        public WorkType(string name, double rate)
+        public WorkType(int id, string name, decimal rate)
         {
+            this.Id = id;
             this.Name = name;
             this.Rate = rate;   
         }
@@ -18,10 +19,12 @@ namespace InvoiceMaker.Models
             get; private set;
         }
 
-        public double Rate
+        public decimal Rate
         {
             get; private set;
         }
+
+        public int Id { get; set; }
 
 
     }

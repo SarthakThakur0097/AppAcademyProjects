@@ -132,6 +132,11 @@
     <Content Include="Views\Shared\InvoiceMakerLayout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Clients\Index.cshtml" />
+    <Content Include="Views\Clients\Create.cshtml" />
+    <Content Include="Views\Clients\Edit.cshtml" />
+    <Content Include="Views\WorkType\Create.cshtml" />
+    <Content Include="Views\WorkType\Index.cshtml" />
+    <Content Include="Views\WorkType\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -148,7 +153,11 @@
   <ItemGroup>
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\InvoicesController.cs" />
+    <Compile Include="Controllers\WorkTypeController.cs" />
     <Compile Include="FormModels\CreateClient.cs" />
+    <Compile Include="FormModels\CreateWorkType.cs" />
+    <Compile Include="FormModels\EditClient.cs" />
+    <Compile Include="FormModels\EditWorkType.cs" />
     <Compile Include="Initialization\RouteConfiguration.cs" />
     <Compile Include="InvoiceMakerApplication.cs" />
     <Compile Include="Md5HashHandler.cs" />
@@ -158,6 +167,7 @@
     <Compile Include="Models\Invoice.cs" />
     <Compile Include="Models\InvoiceStatus.cs" />
     <Compile Include="Models\Repositories\ClientRepository.cs" />
+    <Compile Include="Models\Repositories\WorkTypeRepo.cs" />
     <Compile Include="Models\WorkDone.cs" />
     <Compile Include="Models\WorkLineItem.cs" />
     <Compile Include="Models\WorkType.cs" />

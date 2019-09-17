@@ -8,10 +8,10 @@ namespace InvoiceMaker.Models
     public class FeeLineItem:ILineItem
     {
         string description;
-        double amount;
+        decimal amount;
         DateTimeOffset occurence;
         
-        public FeeLineItem(string description, double amount, DateTimeOffset occurence)
+        public FeeLineItem(string description, decimal amount, DateTimeOffset occurence)
         {
             this.description = description;
             this.amount = amount;
@@ -19,7 +19,7 @@ namespace InvoiceMaker.Models
         }
         
 
-        public double Amount
+        public decimal Amount
         {
             get
             {
