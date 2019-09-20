@@ -1,8 +1,10 @@
-﻿using InvoiceMaker.FormModels;
+﻿using InvoiceMaker.Data;
+using InvoiceMaker.FormModels;
 using InvoiceMaker.Models;
 using InvoiceMaker.Models.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -10,75 +12,116 @@ using System.Web.Mvc;
 
 namespace InvoiceMaker.Controllers
 {
-    public class ClientsController: Controller
+    public class ClientsController : Controller
     {
+        private Context context;
 
+        public ClientsController()
+        {
+            context = new Context();
+        }
+
+        [HttpGet]
         public ActionResult Index()
         {
-            ClientRepository repo = new ClientRepository();
-            List<Client> clients = repo.GetClients();
+            var repository = new ClientRepository(context);
+            IList<Client> clients = repository.GetClients();
             return View("Index", clients);
         }
 
         [HttpGet]
         public ActionResult Create()
         {
-            CreateClient client = new CreateClient();
-            client.IsActivated = true;
-            return View("Create", client);
+            var formModel = new CreateClient();
+            formModel.IsActivated = true;
+            return View("Create", formModel);
         }
 
         [HttpPost]
-        public ActionResult Create(CreateClient client)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(CreateClient formModel)
         {
-            ClientRepository repo = new ClientRepository();
+            var repository = new ClientRepository(context);
+
             try
             {
-                Client newClient = new Client(0, client.Name, client.IsActivated);
-                repo.Insert(newClient);
+                var client = new Client(0, formModel.Name, formModel.IsActivated);
+                repository.Insert(client);
                 return RedirectToAction("Index");
             }
-            catch (SqlException se)
+            catch (DbUpdateException ex)
             {
-                if (se.Number == 2627)
-                {
-                    ModelState.AddModelError("Name", "That name is already taken.");
-                }
+                HandleDbUpdateException(ex);
             }
-            return View("Create", client);
+
+            return View("Create", formModel);
         }
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            ClientRepository repo = new ClientRepository();
-            Client client = repo.GetById(id);
+            var repository = new ClientRepository(context);
+            Client client = repository.GetById(id);
 
-            EditClient model = new EditClient();
-            model.Id = client.Id;
-            model.IsActivated = client.IsActive;
-            model.Name = client.Name;
-            return View("Edit", model);
+            var formModel = new EditClient();
+            formModel.Id = client.Id;
+            formModel.IsActivated = client.IsActive;
+            formModel.Name = client.Name;
+
+            return View("Edit", formModel);
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, EditClient client)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, EditClient formModel)
         {
-            ClientRepository repo = new ClientRepository();
+            var repository = new ClientRepository(context);
+
             try
             {
-                Client newClient = new Client(id, client.Name, client.IsActivated);
-                repo.Update(newClient);
+                var client = new Client(id, formModel.Name, formModel.IsActivated);
+                repository.Update(client);
                 return RedirectToAction("Index");
             }
-            catch (SqlException se)
+            catch (DbUpdateException ex)
             {
-                if (se.Number == 2627)
+                HandleDbUpdateException(ex);
+            }
+
+            return View("Edit", formModel);
+        }
+
+        /// <summary>
+        /// Behold! My proudest moment as a developer.
+        /// </summary>
+        /// <param name="ex"></param>
+        private void HandleDbUpdateException(DbUpdateException ex)
+        {
+            if (ex.InnerException != null && ex.InnerException.InnerException != null)
+            {
+                SqlException sqlException =
+                    ex.InnerException.InnerException as SqlException;
+                if (sqlException != null && sqlException.Number == 2627)
                 {
                     ModelState.AddModelError("Name", "That name is already taken.");
                 }
             }
-            return View("Edit", client);
+        }
+
+        private bool disposed = false;
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposed) return;
+
+            if (disposing)
+            {
+                context.Dispose();
+            }
+
+            disposed = true;
+
+            base.Dispose(disposing);
         }
     }
 }

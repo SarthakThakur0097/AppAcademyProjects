@@ -1,0 +1,41 @@
+﻿@model InvoiceMaker.FormModels.CreateInvoice
+
+<h1>Create an invoice</h1>
+
+@*@Html.DropDownList(Model.Type, new SelectList())*@
+
+
+
+@using (Html.BeginForm("Create", "Invoice", FormMethod.Post, new { @class = "pure-form pure-form-aligned" }))
+{
+    @Html.AntiForgeryToken()
+
+
+    <fieldset>
+        <div>
+            @using (Html.BeginForm())
+            {
+                @Html.DropDownListFor(m => m.ClientId, Model.ClientSelectList, "Client")
+                @Html.ValidationMessageFor(model => model.ClientId, "", new { @class = "pure-form-message-inline" })
+                @*<button type="submit">Submit</button>*@
+            }
+        </div>
+        <div class="pure-control-group">
+            @Html.LabelFor(model => model.InvoiceNumber)
+            @Html.EditorFor(model => model.InvoiceNumber)
+            @Html.ValidationMessageFor(model => model.InvoiceNumber, "", new { @class = "pure-form-message-inline" })
+        </div>
+        @*<div class="pure-control-group">
+                @Html.LabelFor(model => model.Name)
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "pure-form-message-inline" })
+            </div>*@
+
+
+        <div class="pure-controls">
+            @Html.ActionLink("WorkDone", "Index", new { }, new { @class = "pure-button" })
+            <button type="submit" class="pure-button pure-button-primary">Submit</button>
+        </div>
+    </fieldset>
+}
+

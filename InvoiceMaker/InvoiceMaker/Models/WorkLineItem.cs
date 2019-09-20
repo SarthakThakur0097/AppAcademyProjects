@@ -8,6 +8,7 @@ namespace InvoiceMaker.Models
     public class WorkLineItem:ILineItem
     {
         WorkDone _workDone;
+
         public WorkLineItem(WorkDone workDone)
         {
             _workDone = workDone;

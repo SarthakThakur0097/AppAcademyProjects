@@ -5,6 +5,8 @@ using System.Web;
 using System.Diagnostics;
 using InvoiceMaker.Initialization;
 using System.Web.Routing;
+using System.Data.Entity;
+using InvoiceMaker.Data;
 
 namespace InvoiceMaker
 {
@@ -15,6 +17,7 @@ namespace InvoiceMaker
         {   
             RouteConfiguration.AddRoutes(RouteTable.Routes);
 
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<Context>());
             //Debug.WriteLine("Application_Start");
         }
 

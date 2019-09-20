@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -7,6 +8,10 @@ namespace InvoiceMaker.Models
 {
     public class Invoice
     {
+        public Invoice()
+        {
+
+        }
         public Invoice(string invoiceNumber)
         {
             InvoiceNumber = invoiceNumber;
@@ -18,6 +23,13 @@ namespace InvoiceMaker.Models
             : this(invoiceNumber)
         {
             Status = status;
+        }
+
+        public Invoice(string invoiceNumber, InvoiceStatus status, int clientId)
+            : this(invoiceNumber)
+        {
+            Status = status;
+            ClientId = clientId;
         }
 
         public void FinalizeInvoice()
@@ -46,8 +58,19 @@ namespace InvoiceMaker.Models
             LineItems.Add(new FeeLineItem(description, amount, when));
         }
 
-        public InvoiceStatus Status { get; private set; }
-        public string InvoiceNumber { get; private set; }
+        public int Id { get; set; }
+        [Column("Status")]
+        public InvoiceStatus Status { get; set; }
+        [Column("InvoiceNumber")]
+        public string InvoiceNumber { get; set; }
+
+        public int ClientId { get; set; }
+        public Client Client { get; set; }
+
+     
+        
+        //[Column("LineItem")]
         public List<ILineItem> LineItems { get; private set; }
+       
     }
 }

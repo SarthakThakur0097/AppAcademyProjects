@@ -1,8 +1,10 @@
-﻿using InvoiceMaker.FormModels;
+﻿using InvoiceMaker.Data;
+using InvoiceMaker.FormModels;
 using InvoiceMaker.Models;
 using InvoiceMaker.Models.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -12,47 +14,54 @@ namespace InvoiceMaker.Controllers
 {
     public class WorkTypeController : Controller
     {
+
+        private Context context;
+        
+        public WorkTypeController()
+        {
+            context = new Data.Context();
+        }
         // GET: WorkType
+        [HttpGet]
         public ActionResult Index()
         {
-            WorkTypeRepo repo = new WorkTypeRepo();
-            List<WorkType> workTypes = repo.GetWorkTypes();
-
+            var repo = new WorkTypeRepo(context);
+            //List<WorkType> workTypes = repo.GetWorkTypes();
+            IList<WorkType> workTypes = repo.GetWorkTypes();
             return View("Index", workTypes);
         }
 
         [HttpGet]
         public ActionResult Create()
         {
-            CreateWorkType workType = new CreateWorkType();
+            var workType = new CreateWorkType();
        
             return View("Create", workType);
         }
 
         [HttpPost]
-        public ActionResult Create(CreateWorkType workType)
+        public ActionResult Create(CreateWorkType formModel)
         {
-            WorkTypeRepo repo = new WorkTypeRepo();
+            var repo = new WorkTypeRepo(context);
             try
             {
-                WorkType newWorkType = new WorkType(0,workType.Name, workType.Rate);
+                var newWorkType = new WorkType(0,formModel.Name, formModel.Rate);
                 repo.Insert(newWorkType);
                 return RedirectToAction("Index");
             }
-            catch (SqlException se)
+            catch (DbUpdateException ex)
             {
-                if (se.Number == 2627)
-                {
-                    ModelState.AddModelError("Name", "That name is already taken.");
-                }
+                //HandleDbUpdateException(ex);
             }
-            return View("Create", workType);
+            return View("Create", formModel);
         }
+
+    
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            WorkTypeRepo repo = new WorkTypeRepo();
+            WorkTypeRepo repo = new WorkTypeRepo(context);
             WorkType workType = repo.GetById(id);
 
             EditWorkType model = new EditWorkType();
@@ -66,7 +75,7 @@ namespace InvoiceMaker.Controllers
         [HttpPost]
         public ActionResult Edit(int id, EditWorkType workType)
         {
-            WorkTypeRepo repo = new WorkTypeRepo();
+            WorkTypeRepo repo = new WorkTypeRepo(context);
             try
             {
                 WorkType newWorkType = new WorkType(id, workType.Name, workType.Rate);

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -8,34 +10,75 @@ namespace InvoiceMaker.Models
     public class WorkDone
     {
 
-        private Client _client;
-        private WorkType _workType;
-        
+        //private Client _client;
+        //private WorkType _workType;
 
+         public Client Client
+        {
+            get;set;
+        }
+        public WorkType WorkType
+        {
+            get;set;
+        }
+        
+        public WorkDone()
+        {
+
+        }
+        [Required,Column("ClientId")]
+        public int ClientId
+        {
+            get
+            {
+                return Client.Id;
+
+            }
+        }
+
+        [Column("WorkTypeRate")]
+        public decimal WorkTypeRate
+        {
+            get
+            {
+                return WorkType.Rate;
+            }
+        }
+        [Required, Column("WorkTypeId")]
+        public int WorkTypeId
+        {
+            get
+            {
+                return WorkType.Id;
+
+            }
+        }
+        [Column("StartedOn")]
         public DateTimeOffset StartedOn
         {
             get;
             private set;
         }
 
-        
+        [Column("EndedOn")]
         public DateTimeOffset? EndedOn
         {
             get; private set;
         }
+        [Column("ClientName")]
         public string ClientName
         {
             get
             {
-                return _client.Name;
+                return Client.Name;
             }
         }
-
+        [Column("WorkTypeName")]
         public string WorkTypeName
         {
             get
             {
-                return _workType.Name;
+                return WorkType.Name;
             }
         }
         
@@ -48,9 +91,10 @@ namespace InvoiceMaker.Models
             this.Id = id;
             StartedOn = DateTimeOffset.Now;
   
-            _client = client;
-            _workType = workType;
+            Client = client;
+            WorkType = workType;
         }
+
 
         public WorkDone(int id, Client client, WorkType workType, DateTimeOffset startedOn)
             :this(id, client, workType)
@@ -75,7 +119,7 @@ namespace InvoiceMaker.Models
             {
                 decimal hoursWorked = (decimal)(StartedOn - EndedOn.Value).TotalHours ;
 
-                return _workType.Rate * hoursWorked;
+                return WorkType.Rate * hoursWorked;
             }
             return 0;
         }
