@@ -4,6 +4,7 @@ using InvoiceMaker.Models;
 using InvoiceMaker.Models.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -25,7 +26,7 @@ namespace InvoiceMaker.Controllers
             CreateWorkDone model = new CreateWorkDone();
             model.PopulateSelectLists();
             //model.Clients = new ClientRepository(null).GetClients();
-            model.WorkTypes = new WorkTypeRepo(context).GetWorkTypes();
+            //model.WorkTypes = new WorkTypeRepo(context).GetWorkTypes();
 
             return View("Create", model);
         }
@@ -54,15 +55,14 @@ namespace InvoiceMaker.Controllers
             CreateWorkDone viewModel = new CreateWorkDone();
             model.PopulateSelectLists();
 
-            // Copy over the values from the values submitted
+          
             viewModel.ClientId = model.ClientId;
             viewModel.StartedOn = model.StartedOn;
             viewModel.WorkTypeId = model.WorkTypeId;
-            viewModel.WorkDones = new WorkDoneRepo(context).GetWorkDones();
+            
 
-            // Go get the value for the drop-downs, again.
-            //viewModel.Clients = new ClientRepository(context).GetClients();
-            viewModel.WorkTypes = new WorkTypeRepo(context).GetWorkTypes();
+         
+            //viewModel.WorkTypes = new WorkTypeRepo(context).GetWorkTypes();
             return View("Create", viewModel);
         }
 
@@ -74,5 +74,46 @@ namespace InvoiceMaker.Controllers
             return View("Index", workDones);
         }
 
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var cRepository = new ClientRepository(context);
+            Client client = cRepository.GetById(id);
+           // var wtRepository = new WorkTypeRepo(context);
+
+            var formModel = new EditWorkDone();
+            //formModel.Client = 
+                
+
+            return View("Edit", formModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, EditWorkDone formModel)
+        {
+            var cRepository = new ClientRepository(context);
+            var wRepository = new WorkTypeRepo(context);
+            var wdRepository = new WorkDoneRepo(context);
+            try
+            {
+                Client cToEdit = cRepository.GetById(formModel.Client.Id);
+                WorkType wToEdit = wRepository.GetById(formModel.WorkType.Id);
+                var workDone = new WorkDone(id, cToEdit, wToEdit);
+                wdRepository.Update(workDone);
+                return RedirectToAction("Index");
+            }
+            catch (DbUpdateException ex)
+            {
+                HandleDbUpdateException(ex);
+            }
+
+            return View("Edit", formModel);
+        }
+
+        private void HandleDbUpdateException(DbUpdateException ex)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

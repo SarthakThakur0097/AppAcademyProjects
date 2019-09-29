@@ -22,12 +22,7 @@
             @Html.EditorFor(model => model.Rate)
             @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "pure-form-message-inline" })
         </div>
-        @*<div class="pure-controls">
-            <label for="IsActivated">
-                @Html.EditorFor(model => model.IsActivated) Is active
-            </label>
-            @Html.ValidationMessageFor(model => model.IsActivated, "", new { @class = "pure-form-message-inline" })
-        </div>*@
+    
         <div class="pure-controls">
             @Html.ActionLink("Cancel", "Index", new { }, new { @class = "pure-button" })
             <button type="submit" class="pure-button pure-button-primary">Submit</button>

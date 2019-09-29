@@ -26,7 +26,7 @@ namespace InvoiceMaker.Controllers
         public ActionResult Index()
         {
             var repo = new WorkTypeRepo(context);
-            //List<WorkType> workTypes = repo.GetWorkTypes();
+   
             IList<WorkType> workTypes = repo.GetWorkTypes();
             return View("Index", workTypes);
         }

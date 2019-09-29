@@ -149,6 +149,7 @@
     <Content Include="Views\Invoice\Create.cshtml" />
     <Content Include="Views\Invoice\Edit.cshtml" />
     <Content Include="Views\Invoice\Index.cshtml" />
+    <Content Include="Views\WorkDone\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -173,6 +174,7 @@
     <Compile Include="FormModels\CreateWorkDone.cs" />
     <Compile Include="FormModels\CreateWorkType.cs" />
     <Compile Include="FormModels\EditClient.cs" />
+    <Compile Include="FormModels\EditWorkDone.cs" />
     <Compile Include="FormModels\EditWorkType.cs" />
     <Compile Include="Initialization\RouteConfiguration.cs" />
     <Compile Include="InvoiceMakerApplication.cs" />

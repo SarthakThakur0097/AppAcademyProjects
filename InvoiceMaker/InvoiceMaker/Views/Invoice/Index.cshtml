@@ -28,7 +28,7 @@
                 <td>@invoice.InvoiceNumber</td>
                 <td>@invoice.Status</td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit")
+                    @Html.ActionLink("Edit", "Edit",new { Id = invoice.Id })
                 </td>
             </tr>
         }

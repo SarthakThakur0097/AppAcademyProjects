@@ -91,10 +91,7 @@ namespace InvoiceMaker.Controllers
             return View("Edit", formModel);
         }
 
-        /// <summary>
-        /// Behold! My proudest moment as a developer.
-        /// </summary>
-        /// <param name="ex"></param>
+      
         private void HandleDbUpdateException(DbUpdateException ex)
         {
             if (ex.InnerException != null && ex.InnerException.InnerException != null)

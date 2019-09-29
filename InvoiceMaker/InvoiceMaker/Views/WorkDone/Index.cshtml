@@ -3,7 +3,7 @@
 <h1>Work Done</h1>
 
 <p>
-    @Html.ActionLink("Create a Work Type", "Create", new { }, new { @class = "pure-button pure-button-primary" })
+    @Html.ActionLink("Create a Work Done", "Create", new { }, new { @class = "pure-button pure-button-primary" })
 </p>
 
 <table class="pure-table pure-table-bordered">
@@ -25,7 +25,7 @@
                 <td>@workDone.WorkTypeRate</td>
                
                 <td>
-                    @Html.ActionLink("Edit", "Edit")
+                    @Html.ActionLink("Edit", "Edit", new { Id = workDone.Id })
                 </td>
             </tr>
         }
