@@ -32,10 +32,10 @@ namespace InvoiceMaker.FormModels
                 return new SelectList(WorkTypes, "Id", "Name");
             }
         }
-        public void PopulateSelectLists(Context _context)
+        public void PopulateSelectLists(Context context)
         {
-            ClientRepository cRepo = new ClientRepository(_context);
-            WorkTypeRepo wtRepo = new WorkTypeRepo(_context);
+            ClientRepo cRepo = new ClientRepo(context);
+            WorkTypeRepo wtRepo = new WorkTypeRepo(context);
 
             Clients = cRepo.GetClients();
             WorkTypes = wtRepo.GetWorkTypes();

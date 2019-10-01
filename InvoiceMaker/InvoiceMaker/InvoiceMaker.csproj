@@ -184,7 +184,7 @@
     <Compile Include="Models\ILineItem.cs" />
     <Compile Include="Models\Invoice.cs" />
     <Compile Include="Models\InvoiceStatus.cs" />
-    <Compile Include="Models\Repositories\ClientRepository.cs" />
+    <Compile Include="Models\Repositories\ClientRepo.cs" />
     <Compile Include="Models\Repositories\InvoiceRepo.cs" />
     <Compile Include="Models\Repositories\WorkDoneRepo.cs" />
     <Compile Include="Models\Repositories\WorkTypeRepo.cs" />

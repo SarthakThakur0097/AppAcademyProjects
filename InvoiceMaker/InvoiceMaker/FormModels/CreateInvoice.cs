@@ -26,9 +26,9 @@ namespace InvoiceMaker.FormModels
             }
         }
 
-        public void PopulateSelectLists(Context _context)
+        public void PopulateSelectLists(Context context)
         {
-            ClientRepository cRepo = new ClientRepository(_context);
+            ClientRepo cRepo = new ClientRepo(context);
             Clients = cRepo.GetClients();
 
         }

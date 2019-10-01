@@ -5,6 +5,7 @@ using InvoiceMaker.Models.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -25,8 +26,6 @@ namespace InvoiceMaker.Controllers
         {
             CreateWorkDone model = new CreateWorkDone();
             model.PopulateSelectLists(context);
-            //model.Clients = new ClientRepository(null).GetClients();
-            //model.WorkTypes = new WorkTypeRepo(context).GetWorkTypes();
 
             return View("Create", model);
         }
@@ -36,9 +35,8 @@ namespace InvoiceMaker.Controllers
         {
             try
             {
-                // Get the client and work type based on values submitted from
-                // the form
-                Client client = new ClientRepository(context).GetById(model.ClientId);
+              
+                Client client = new ClientRepo(context).GetById(model.ClientId);
                 WorkType workType = new WorkTypeRepo(context).GetById(model.WorkTypeId);
 
                 // Create an instance of the work done with the client and work
@@ -58,10 +56,6 @@ namespace InvoiceMaker.Controllers
             viewModel.ClientId = model.ClientId;
             viewModel.StartedOn = model.StartedOn;
             viewModel.WorkTypeId = model.WorkTypeId;
-            
-
-         
-            //viewModel.WorkTypes = new WorkTypeRepo(context).GetWorkTypes();
             return View("Create", viewModel);
         }
 
@@ -78,8 +72,7 @@ namespace InvoiceMaker.Controllers
         {
             var wdRepository = new WorkDoneRepo(context);
             WorkDone workDone = wdRepository.GetById(id);
-           // var wtRepository = new WorkTypeRepo(context);
-
+           
             var model = new EditWorkDone();
             model.Client = workDone.Client;
             model.WorkType = workDone.WorkType;
@@ -91,7 +84,7 @@ namespace InvoiceMaker.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, EditWorkDone formModel)
         {
-            var cRepository = new ClientRepository(context);
+            var cRepository = new ClientRepo(context);
             var wRepository = new WorkTypeRepo(context);
             var wdRepository = new WorkDoneRepo(context);
             try
@@ -112,7 +105,15 @@ namespace InvoiceMaker.Controllers
 
         private void HandleDbUpdateException(DbUpdateException ex)
         {
-            throw new NotImplementedException();
+            if (ex.InnerException != null && ex.InnerException.InnerException != null)
+            {
+                SqlException sqlException =
+                    ex.InnerException.InnerException as SqlException;
+                if (sqlException != null && sqlException.Number == 2627)
+                {
+                    ModelState.AddModelError("Name", "That name is already taken.");
+                }
+            }
         }
     }
 }

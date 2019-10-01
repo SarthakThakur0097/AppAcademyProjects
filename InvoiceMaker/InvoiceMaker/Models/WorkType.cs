@@ -23,7 +23,7 @@ namespace InvoiceMaker.Models
         [Required, Column("WorkTypeName"), MaxLength(255)]
         public string Name
         {
-            get; private set;
+            get; set;
         }
 
         [Required, Column("Rate")]

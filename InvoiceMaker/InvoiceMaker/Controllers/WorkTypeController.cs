@@ -51,7 +51,7 @@ namespace InvoiceMaker.Controllers
             }
             catch (DbUpdateException ex)
             {
-                //HandleDbUpdateException(ex);
+               // HandleDbUpdateException(ex);
             }
             return View("Create", formModel);
         }
@@ -65,7 +65,7 @@ namespace InvoiceMaker.Controllers
             WorkType workType = repo.GetById(id);
 
             EditWorkType model = new EditWorkType();
-            //model.Id = client.Id;
+            
             model.Id = id;
             model.Name = workType.Name;
             model.Rate = workType.Rate;
@@ -82,14 +82,24 @@ namespace InvoiceMaker.Controllers
                 repo.Update(newWorkType);
                 return RedirectToAction("Index");
             }
-            catch (SqlException se)
+            catch (DbUpdateException se)
             {
-                if (se.Number == 2627)
+                HandleDbUpdateException(se);
+            }
+            return View("Edit", workType);
+        }
+
+        private void HandleDbUpdateException(DbUpdateException ex)
+        {
+            if (ex.InnerException != null && ex.InnerException.InnerException != null)
+            {
+                SqlException sqlException =
+                    ex.InnerException.InnerException as SqlException;
+                if (sqlException != null && sqlException.Number == 2627)
                 {
                     ModelState.AddModelError("Name", "That name is already taken.");
                 }
             }
-            return View("Edit", workType);
         }
     }
 }

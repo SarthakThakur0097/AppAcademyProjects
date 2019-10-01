@@ -11,12 +11,11 @@
 
     <fieldset>
         <div>
-            @using (Html.BeginForm())
-            {
+           
                 @Html.DropDownListFor(m => m.ClientId, Model.ClientSelectList, "Client")
                 @Html.ValidationMessageFor(model => model.ClientId, "", new { @class = "pure-form-message-inline" })
               
-            }
+           
         </div>
         <div class="pure-control-group">
             @Html.LabelFor(model => model.InvoiceNumber)

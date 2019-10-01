@@ -9,11 +9,11 @@ using System.Web;
 
 namespace InvoiceMaker.Models.Repositories
 {
-    public class ClientRepository
+    public class ClientRepo
     {
         private Context _context;
 
-        public ClientRepository(Context context)
+        public ClientRepo(Context context)
         {
             _context = context;
         }

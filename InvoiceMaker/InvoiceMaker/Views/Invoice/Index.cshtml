@@ -1,9 +1,9 @@
 ﻿@model List<InvoiceMaker.Models.Invoice>
 
-<h1>WorkType</h1>
+<h1>Invoices</h1>
 
 <p>
-    @Html.ActionLink("Create a Work Type", "Create", new { }, new { @class = "pure-button pure-button-primary" })
+    @Html.ActionLink("Create an Invoice", "Create", new { }, new { @class = "pure-button pure-button-primary" })
 </p>
 
 <table class="pure-table pure-table-bordered">
@@ -24,7 +24,7 @@
             {
             <tr>
                 <td>@invoice.Client.Name</td>
-                <td>@DateTime.UtcNow</td>
+                <td>@invoice.StartedOn</td>
                 <td>@invoice.InvoiceNumber</td>
                 <td>@invoice.Status</td>
                 <td>

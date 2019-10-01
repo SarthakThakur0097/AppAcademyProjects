@@ -11,7 +11,7 @@ namespace InvoiceMaker.Models.Repositories
 {
     public class WorkDoneRepo
     {
-        //private string _connectionString = ConfigurationManager.ConnectionStrings["InvoiceMakerMvc"].ConnectionString;
+        
         private readonly Context _context;
 
         public WorkDoneRepo(Context context )

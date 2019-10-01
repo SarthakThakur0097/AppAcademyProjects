@@ -26,7 +26,6 @@ namespace InvoiceMaker.Models.Repositories
             return _context.WorkTypes.SingleOrDefault(c => c.Id == id);
         }
 
-        //private string _connectionString = ConfigurationManager.ConnectionStrings["InvoiceMakerMvc"].ConnectionString;
 
         public void Insert(WorkType workType)
         {

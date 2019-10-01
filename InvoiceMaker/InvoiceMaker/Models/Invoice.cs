@@ -59,17 +59,19 @@ namespace InvoiceMaker.Models
         }
 
         public int Id { get; set; }
-        [Column("Status")]
+        
         public InvoiceStatus Status { get; set; }
-        [Column("InvoiceNumber")]
+        
         public string InvoiceNumber { get; set; }
+
+        public DateTimeOffset StartedOn
+        {
+            get;
+            private set;
+        }
 
         public int ClientId { get; set; }
         public Client Client { get; set; }
-
-     
-        
-        //[Column("LineItem")]
         public List<ILineItem> LineItems { get; private set; }
        
     }

@@ -26,7 +26,7 @@ namespace InvoiceMaker.Models
         {
 
         }
-        [Required,Column("ClientId")]
+        
         public int ClientId
         {
             get
@@ -117,7 +117,7 @@ namespace InvoiceMaker.Models
         {
             if(EndedOn!= null)
             {
-                decimal hoursWorked = (decimal)(StartedOn - EndedOn.Value).TotalHours ;
+                decimal hoursWorked = (decimal)(EndedOn.Value - StartedOn).TotalHours;
 
                 return WorkType.Rate * hoursWorked;
             }

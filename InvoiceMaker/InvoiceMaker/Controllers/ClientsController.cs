@@ -24,7 +24,7 @@ namespace InvoiceMaker.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var repository = new ClientRepository(context);
+            var repository = new ClientRepo(context);
             IList<Client> clients = repository.GetClients();
             return View("Index", clients);
         }
@@ -41,7 +41,7 @@ namespace InvoiceMaker.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateClient formModel)
         {
-            var repository = new ClientRepository(context);
+            var repository = new ClientRepo(context);
 
             try
             {
@@ -60,7 +60,7 @@ namespace InvoiceMaker.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var repository = new ClientRepository(context);
+            var repository = new ClientRepo(context);
             Client client = repository.GetById(id);
 
             var formModel = new EditClient();
@@ -75,7 +75,7 @@ namespace InvoiceMaker.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, EditClient formModel)
         {
-            var repository = new ClientRepository(context);
+            var repository = new ClientRepo(context);
 
             try
             {
