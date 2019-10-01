@@ -2,7 +2,6 @@
 
 <h1>Create a client</h1>
 
-@*@Html.DropDownList(Model.Type, new SelectList())*@
 
 
 
@@ -18,17 +17,9 @@
                 @Html.DropDownListFor(m => m.ClientId, Model.ClientSelectList, "Client")
                 @Html.ValidationMessageFor(model => model.ClientId, "", new { @class = "pure-form-message-inline" })
 
-                @Html.DropDownListFor(m => m.WorkTypeId, Model.WorkTypeSelectList, "Work Type")
-                @*<button type="submit">Submit</button>*@
+                @Html.DropDownListFor(m => m.WorkTypeId, Model.WorkTypeSelectList, "Work Type")          
             }
-
         </div>
-        @*<div class="pure-control-group">
-            @Html.LabelFor(model => model.Name)
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "pure-form-message-inline" })
-        </div>*@
-
         
         <div class="pure-controls">
             @Html.ActionLink("WorkDone", "Index", new { }, new { @class = "pure-button" })

@@ -30,7 +30,7 @@ namespace InvoiceMaker.Controllers
         public ActionResult Create()
         {
             var formModel = new CreateInvoice();
-            formModel.PopulateSelectLists();
+            formModel.PopulateSelectLists(context);
             return View("Create", formModel);
         }
 
@@ -53,7 +53,7 @@ namespace InvoiceMaker.Controllers
                 HandleDbUpdateException(ex);
             }
 
-            formModel.PopulateSelectLists();
+            formModel.PopulateSelectLists(context);
             return View("Create", formModel);
         }
 

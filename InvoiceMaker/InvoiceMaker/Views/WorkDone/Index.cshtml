@@ -12,7 +12,8 @@
             <th>Client Name</th>
             <th>Work Type</th>
             <th>Rate</th>
-            <th></th>
+            <th>StartedOn</th>
+            <th>EndedOn</th>
         </tr>
     </thead>
 
@@ -23,6 +24,8 @@
                 <td>@workDone.ClientName</td>
                 <td>@workDone.WorkTypeName</td>
                 <td>@workDone.WorkTypeRate</td>
+                <td>@workDone.StartedOn</td>
+                <td>@workDone.EndedOn</td>
                
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { Id = workDone.Id })

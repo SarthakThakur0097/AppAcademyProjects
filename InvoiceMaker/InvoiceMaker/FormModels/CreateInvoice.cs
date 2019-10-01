@@ -17,7 +17,7 @@ namespace InvoiceMaker.FormModels
         public string InvoiceNumber { get; set; }
         public InvoiceStatus Status { get; set; }
 
-        private Context _context = new Context();
+        
         public SelectList ClientSelectList
         {
             get
@@ -26,7 +26,7 @@ namespace InvoiceMaker.FormModels
             }
         }
 
-        public void PopulateSelectLists()
+        public void PopulateSelectLists(Context _context)
         {
             ClientRepository cRepo = new ClientRepository(_context);
             Clients = cRepo.GetClients();

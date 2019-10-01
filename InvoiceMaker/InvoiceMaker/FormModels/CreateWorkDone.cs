@@ -11,10 +11,6 @@ namespace InvoiceMaker.FormModels
 {
     public class CreateWorkDone
     {
-
-        private Context _context = new Context();
-
-
         public int ClientId { get; set; }
         public int WorkTypeId { get; set; }
         public DateTimeOffset StartedOn { get; set; }
@@ -22,7 +18,6 @@ namespace InvoiceMaker.FormModels
 
         public IList<Client> Clients { get; set; }
         public IList<WorkType> WorkTypes { get; set; }
-        public List<WorkDone> WorkDones { get; set; }
         public SelectList ClientSelectList
         {
             get
@@ -37,7 +32,7 @@ namespace InvoiceMaker.FormModels
                 return new SelectList(WorkTypes, "Id", "Name");
             }
         }
-        public void PopulateSelectLists()
+        public void PopulateSelectLists(Context _context)
         {
             ClientRepository cRepo = new ClientRepository(_context);
             WorkTypeRepo wtRepo = new WorkTypeRepo(_context);

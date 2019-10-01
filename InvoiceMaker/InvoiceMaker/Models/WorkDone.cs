@@ -84,7 +84,7 @@ namespace InvoiceMaker.Models
         
         public int Id
         {
-            get; private set;
+            get; set;
         }
         public WorkDone(int id, Client client, WorkType workType)
         {

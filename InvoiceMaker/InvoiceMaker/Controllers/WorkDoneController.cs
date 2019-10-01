@@ -24,7 +24,7 @@ namespace InvoiceMaker.Controllers
         public ActionResult Create()
         {
             CreateWorkDone model = new CreateWorkDone();
-            model.PopulateSelectLists();
+            model.PopulateSelectLists(context);
             //model.Clients = new ClientRepository(null).GetClients();
             //model.WorkTypes = new WorkTypeRepo(context).GetWorkTypes();
 
@@ -53,9 +53,8 @@ namespace InvoiceMaker.Controllers
 
             // Create a view model
             CreateWorkDone viewModel = new CreateWorkDone();
-            model.PopulateSelectLists();
+            viewModel.PopulateSelectLists(context);
 
-          
             viewModel.ClientId = model.ClientId;
             viewModel.StartedOn = model.StartedOn;
             viewModel.WorkTypeId = model.WorkTypeId;
@@ -77,15 +76,15 @@ namespace InvoiceMaker.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var cRepository = new ClientRepository(context);
-            Client client = cRepository.GetById(id);
+            var wdRepository = new WorkDoneRepo(context);
+            WorkDone workDone = wdRepository.GetById(id);
            // var wtRepository = new WorkTypeRepo(context);
 
-            var formModel = new EditWorkDone();
-            //formModel.Client = 
-                
-
-            return View("Edit", formModel);
+            var model = new EditWorkDone();
+            model.Client = workDone.Client;
+            model.WorkType = workDone.WorkType;
+            model.PopulateSelectLists(context);
+            return View("Edit", model);
         }
 
         [HttpPost]
