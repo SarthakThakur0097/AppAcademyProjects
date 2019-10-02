@@ -20,7 +20,7 @@ namespace InvoiceMaker.Controllers
         public ActionResult Index()
         {
             var repository = new InvoiceRepo(context);
-            IList<Invoice> invoices = repository.GetAllInvoices();
+            IList<Invoice> invoices = repository.GetInvoices();
 
             return View("Index", invoices);
         }

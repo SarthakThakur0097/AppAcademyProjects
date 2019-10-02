@@ -13,19 +13,8 @@ namespace InvoiceMaker.FormModels
     {
         public Client Client { get; set; }
         public WorkType WorkType { get; set; }
-       
-        public DateTimeOffset StartedOn
-        {
-            get;
-            set;
-        }
-
-       
-        public DateTimeOffset? EndedOn
-        {
-            get; set;
-        }
-
+        public DateTimeOffset StartedOn {get; set;}
+        public DateTimeOffset? EndedOn {get; set;}
         public IList<Client> Clients { get; set; }
         public IList<WorkType> WorkTypes { get; set; }
         public SelectList ClientSelectList

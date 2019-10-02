@@ -11,30 +11,27 @@ namespace InvoiceMaker.Models.Repositories
     public class WorkTypeRepo
     {
         private Context _context;
+
         public WorkTypeRepo(Context context)
         {
             _context = context;
         }
+
         public List<WorkType> GetWorkTypes()
         {
             return _context.WorkTypes.ToList();
         }
-
 
         public WorkType GetById(int id)
         {
             return _context.WorkTypes.SingleOrDefault(c => c.Id == id);
         }
 
-
         public void Insert(WorkType workType)
         {
             _context.WorkTypes.Add(workType);
             _context.SaveChanges();
         }
-
-
-
 
         public void Update(WorkType workType)
         {

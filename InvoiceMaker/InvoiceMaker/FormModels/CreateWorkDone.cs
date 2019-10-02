@@ -14,8 +14,6 @@ namespace InvoiceMaker.FormModels
         public int ClientId { get; set; }
         public int WorkTypeId { get; set; }
         public DateTimeOffset StartedOn { get; set; }
-
-
         public IList<Client> Clients { get; set; }
         public IList<WorkType> WorkTypes { get; set; }
         public SelectList ClientSelectList
@@ -40,6 +38,5 @@ namespace InvoiceMaker.FormModels
             Clients = cRepo.GetClients();
             WorkTypes = wtRepo.GetWorkTypes();
         }
-
     }
 }

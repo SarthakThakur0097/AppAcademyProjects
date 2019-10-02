@@ -16,15 +16,11 @@ namespace InvoiceMaker.Initialization
             name: "Default",
             url: "{controller}/{action}/{id}",
             defaults: new
-                {
-                    controller = "Invoices",
-                    action = "Index",
-                    id = UrlParameter.Optional
-                }
-                            );
-        } 
-
-
-
+            {
+                controller = "Invoices",
+                action = "Index",
+                id = UrlParameter.Optional
+            });
+        }
     }
 }

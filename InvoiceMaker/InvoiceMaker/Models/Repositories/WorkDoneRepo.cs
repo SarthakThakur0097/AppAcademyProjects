@@ -39,7 +39,6 @@ namespace InvoiceMaker.Models.Repositories
             _context.SaveChanges();
         }
 
-
         public WorkDone GetById(int id)
         {
             return _context.WorkDones.SingleOrDefault(c => c.Id == id);

@@ -16,7 +16,7 @@ namespace InvoiceMaker.Models.Repositories
             _context = context;
         }
 
-        public IList<Invoice>GetInvoices()
+        public IList<Invoice> GetInvoices()
         {
             return _context.Invoices.
                  Include(i => i.Client)
