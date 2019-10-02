@@ -51,12 +51,23 @@ namespace InvoiceMaker.Controllers
             }
             catch (DbUpdateException ex)
             {
-               // HandleDbUpdateException(ex);
+                HandleDbUpdateException(ex);
             }
             return View("Create", formModel);
         }
 
-    
+        private void HandleDbUpdateException(DbUpdateException ex)
+        {
+            if (ex.InnerException != null && ex.InnerException.InnerException != null)
+            {
+                SqlException sqlException =
+                    ex.InnerException.InnerException as SqlException;
+                if (sqlException != null && sqlException.Number == 2627)
+                {
+                    ModelState.AddModelError("Name", "That name is already taken.");
+                }
+            }
+        }
 
         [HttpGet]
         public ActionResult Edit(int id)
@@ -89,17 +100,5 @@ namespace InvoiceMaker.Controllers
             return View("Edit", workType);
         }
 
-        private void HandleDbUpdateException(DbUpdateException ex)
-        {
-            if (ex.InnerException != null && ex.InnerException.InnerException != null)
-            {
-                SqlException sqlException =
-                    ex.InnerException.InnerException as SqlException;
-                if (sqlException != null && sqlException.Number == 2627)
-                {
-                    ModelState.AddModelError("Name", "That name is already taken.");
-                }
-            }
-        }
     }
 }

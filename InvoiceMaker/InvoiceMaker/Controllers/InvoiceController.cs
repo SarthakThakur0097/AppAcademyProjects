@@ -13,9 +13,13 @@ namespace InvoiceMaker.Controllers
 {
     public class InvoiceController : Controller
     {
-        private Context context = new Context();
-        // GET: Invoivce
+        private Context context;
         
+        public InvoiceController()
+        {
+            context = new Context();
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -25,7 +29,6 @@ namespace InvoiceMaker.Controllers
             return View("Index", invoices);
         }
 
-
         [HttpGet]
         public ActionResult Create()
         {
@@ -33,7 +36,6 @@ namespace InvoiceMaker.Controllers
             formModel.PopulateSelectLists(context);
             return View("Create", formModel);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -61,14 +63,5 @@ namespace InvoiceMaker.Controllers
         {
             throw new NotImplementedException();
         }
-
-        //[HttpGet]
-        //public ActionResult Edit()
-        //{
-        //    CreateInvoice model = new CreateInvoice();
-        //    model.PopulateSelectLists();
-
-        //    return View("Create", model);
-        //}
     }
 }

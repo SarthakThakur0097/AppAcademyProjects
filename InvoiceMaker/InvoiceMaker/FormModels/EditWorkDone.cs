@@ -11,8 +11,8 @@ namespace InvoiceMaker.FormModels
 {
     public class EditWorkDone
     {
-        public Client Client { get; set; }
-        public WorkType WorkType { get; set; }
+        public int ClientId { get; set; }
+        public int WorkTypeId { get; set; }
         public DateTimeOffset StartedOn {get; set;}
         public DateTimeOffset? EndedOn {get; set;}
         public IList<Client> Clients { get; set; }

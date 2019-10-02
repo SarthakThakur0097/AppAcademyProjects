@@ -14,13 +14,21 @@ namespace InvoiceMaker.Controllers
 {
     public class WorkDoneController : Controller
     {
-        // GET: WorkDone
         private Context context;
 
         public WorkDoneController()
         {
             context = new Context();
         }
+
+        [HttpGet]
+        public ActionResult Index()
+        {
+            WorkDoneRepo repo = new WorkDoneRepo(context);
+            IList<WorkDone> workDones = repo.GetWorkDones();
+            return View("Index", workDones);
+        }
+
         [HttpGet]
         public ActionResult Create()
         {
@@ -47,24 +55,18 @@ namespace InvoiceMaker.Controllers
                 wRepo.Insert(workDone);
                 return RedirectToAction("Index");
             }
-            catch { }
+            catch (DbUpdateException ex)
+            {
+                HandleDbUpdateException(ex);
+            }
 
             // Create a view model
             CreateWorkDone viewModel = new CreateWorkDone();
             viewModel.PopulateSelectLists(context);
 
             viewModel.ClientId = model.ClientId;
-            viewModel.StartedOn = model.StartedOn;
             viewModel.WorkTypeId = model.WorkTypeId;
             return View("Create", viewModel);
-        }
-
-        [HttpGet]
-        public ActionResult Index()
-        {
-            WorkDoneRepo repo = new WorkDoneRepo(context);
-            IList<WorkDone> workDones = repo.GetWorkDones();
-            return View("Index", workDones);
         }
 
         [HttpGet]
@@ -74,8 +76,11 @@ namespace InvoiceMaker.Controllers
             WorkDone workDone = wdRepository.GetById(id);
            
             var model = new EditWorkDone();
-            model.Client = workDone.Client;
-            model.WorkType = workDone.WorkType;
+            model.ClientId = workDone.ClientId;
+            model.WorkTypeId = workDone.WorkTypeId;
+            model.StartedOn = workDone.StartedOn;
+            model.EndedOn = workDone.EndedOn;
+
             model.PopulateSelectLists(context);
             return View("Edit", model);
         }
@@ -89,9 +94,9 @@ namespace InvoiceMaker.Controllers
             var wdRepository = new WorkDoneRepo(context);
             try
             {
-                Client cToEdit = cRepository.GetById(formModel.Client.Id);
-                WorkType wToEdit = wRepository.GetById(formModel.WorkType.Id);
-                var workDone = new WorkDone(id, cToEdit, wToEdit);
+                Client cToEdit = cRepository.GetById(formModel.ClientId);
+                WorkType wToEdit = wRepository.GetById(formModel.WorkTypeId);
+                var workDone = new WorkDone(id, cToEdit, wToEdit, formModel.StartedOn, formModel.EndedOn);
                 wdRepository.Update(workDone);
                 return RedirectToAction("Index");
             }
@@ -105,15 +110,7 @@ namespace InvoiceMaker.Controllers
 
         private void HandleDbUpdateException(DbUpdateException ex)
         {
-            if (ex.InnerException != null && ex.InnerException.InnerException != null)
-            {
-                SqlException sqlException =
-                    ex.InnerException.InnerException as SqlException;
-                if (sqlException != null && sqlException.Number == 2627)
-                {
-                    ModelState.AddModelError("Name", "That name is already taken.");
-                }
-            }
+            throw new NotImplementedException();
         }
     }
 }

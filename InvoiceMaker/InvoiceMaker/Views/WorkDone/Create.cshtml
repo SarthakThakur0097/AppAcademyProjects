@@ -2,29 +2,25 @@
 
 <h1>Create a Work Done</h1>
 
-
-
-
 @using (Html.BeginForm("Create", "WorkDone", FormMethod.Post, new { @class = "pure-form pure-form-aligned" }))
 {
     @Html.AntiForgeryToken()
 
-
     <fieldset>
-        <div>
-                @Html.LabelFor(model => Model.ClientId)
-                @Html.DropDownListFor(m => m.ClientId, Model.ClientSelectList, "Client")
+            <div>
+                @Html.LabelFor(model => model.ClientId)
+                @Html.DropDownListFor(model => model.ClientId, Model.ClientSelectList, "Client")
                 @Html.ValidationMessageFor(model => model.ClientId, "", new { @class = "pure-form-message-inline" })
+            </div>  
+            <div>
+                @Html.LabelFor(model => model.WorkTypeId)
+                @Html.DropDownListFor(model => model.WorkTypeId, Model.WorkTypeSelectList, "Work Type")
+                @Html.ValidationMessageFor(model => model.WorkTypeId, "", new { @class = "pure-form-message-inline" })
+            </div>
 
-                @Html.LabelFor(model => Model.WorkTypeId)
-                @Html.DropDownListFor(m => m.WorkTypeId, Model.WorkTypeSelectList, "Work Type")       
-            @Html.ValidationMessageFor(model => model.WorkTypeId, "", new { @class = "pure-form-message-inline" })   
-            
-        </div>
-        
         <div class="pure-controls">
 
-            @Html.ActionLink("WorkDone", "Index", new { }, new { @class = "pure-button" })
+            @Html.ActionLink("Cancel", "Index", new { }, new { @class = "pure-button" })
             <button type="submit" class="pure-button pure-button-primary">Submit</button>
         </div>
     </fieldset>
