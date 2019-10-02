@@ -26,10 +26,10 @@ namespace InvoiceMaker.Models
             get; set;
         }
 
-        [Required, Column("Rate")]
+        [Required]
         public decimal Rate
         {
-            get; private set;
+            get; set;
         }
 
         public int Id { get; set; }

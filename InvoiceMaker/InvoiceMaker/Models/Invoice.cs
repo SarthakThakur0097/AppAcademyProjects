@@ -8,6 +8,22 @@ namespace InvoiceMaker.Models
 {
     public class Invoice
     {
+        public int Id { get; set; }
+
+        public InvoiceStatus Status { get; set; }
+
+        public string InvoiceNumber { get; set; }
+
+        public DateTimeOffset StartedOn
+        {
+            get;
+            set;
+        }
+
+        public int ClientId { get; set; }
+        public Client Client { get; set; }
+        public List<ILineItem> LineItems { get; set; }
+
         public Invoice()
         {
 
@@ -57,22 +73,6 @@ namespace InvoiceMaker.Models
         {
             LineItems.Add(new FeeLineItem(description, amount, when));
         }
-
-        public int Id { get; set; }
-        
-        public InvoiceStatus Status { get; set; }
-        
-        public string InvoiceNumber { get; set; }
-
-        public DateTimeOffset StartedOn
-        {
-            get;
-            private set;
-        }
-
-        public int ClientId { get; set; }
-        public Client Client { get; set; }
-        public List<ILineItem> LineItems { get; private set; }
        
     }
 }

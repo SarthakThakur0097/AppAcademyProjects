@@ -10,15 +10,6 @@ namespace InvoiceMaker.Models
         string description;
         decimal amount;
         DateTimeOffset occurence;
-        
-        public FeeLineItem(string description, decimal amount, DateTimeOffset occurence)
-        {
-            this.description = description;
-            this.amount = amount;
-            this.occurence = occurence;
-        }
-        
-
         public decimal Amount
         {
             get
@@ -42,6 +33,12 @@ namespace InvoiceMaker.Models
             {
                 return this.occurence;
             }
+        }
+        public FeeLineItem(string description, decimal amount, DateTimeOffset occurence)
+        {
+            this.description = description;
+            this.amount = amount;
+            this.occurence = occurence;
         }
     }
 }
