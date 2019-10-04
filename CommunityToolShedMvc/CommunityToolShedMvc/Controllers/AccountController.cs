@@ -29,9 +29,6 @@ namespace CommunityToolShedMvc.Controllers
             return View(viewModel);
         }
 
-    
-
-
         [HttpPost]
         [AllowAnonymous]
         public ActionResult Register(RegisterViewModel viewModel)

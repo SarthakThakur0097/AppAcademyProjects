@@ -43,9 +43,6 @@ namespace CommunityToolShedMvc.Controllers
             return View(Communities);
         }
 
-        public ActionResult Add()
-        {
-
-        }
+        
     }
 }
